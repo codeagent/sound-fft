@@ -1,0 +1,31 @@
+<div id="app">
+  <button id="speech">Speech</button>
+  <input
+    type="text"
+    id="text"
+    value="How do you comfort a JavaScript bug?  You console it"
+  />
+
+  <select id="fftSize">
+    <option value="32">32</option>
+    <option value="64">64</option>
+    <option value="128">128</option>
+    <option value="256">256</option>
+    <option value="512" selected>512</option>
+    <option value="1024">1024</option>
+    <option value="2048">2048</option>
+  </select>
+</div>
+
+<div style="margin: 10px auto">
+  <div>AnalyserNode</div>
+  <canvas width="800" id="native" height="200"></canvas>
+</div>
+<div style="margin: 10px auto">
+  <div>DFT <span id="dft-measute">0</span>(ms)</div>
+  <canvas width="800" id="dft" height="200" style="margin: 10px auto"></canvas>
+</div>
+<div style="margin: 10px auto">
+  <div>FFT <span id="fft-measute">0</span>(ms)</div>
+  <canvas width="800" id="fft" height="200" style="margin: 10px auto"></canvas>
+</div>
