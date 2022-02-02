@@ -3,9 +3,9 @@ export class TextToSpeech {
 
   async synthesize(text: string): Promise<Uint8Array> {
     const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${this.apiKey}`;
-
+    const key = `${url}&text=${encodeURIComponent(text)}`;
     let response: Response;
-    if (!self.caches || !(response = await self.caches.match(url))) {
+    if (!self.caches || !(response = await self.caches.match(key))) {
       response = await fetch(url, {
         method: 'post',
         body: JSON.stringify({
@@ -24,7 +24,7 @@ export class TextToSpeech {
 
       if (self.caches) {
         const cache = await self.caches.open('audio');
-        await cache.put(url, response);
+        await cache.put(key, response.clone());
       }
     }
 

@@ -3,7 +3,6 @@ import './style.css';
 import { AnalyserMock } from './analyzer.mock';
 import { dft, fft } from './fft';
 import { Profiler } from './profiler';
-import './style.css';
 import { TextToSpeech } from './text-to-speech';
 import { Visualzer } from './visualizer';
 
@@ -113,10 +112,12 @@ document
   .querySelector('#speech')
   .addEventListener(
     'click',
-    async () =>
+    async () => {
+      console.log((document.getElementById('text') as HTMLInputElement).value)
       await view.synthesize(
         (document.getElementById('text') as HTMLInputElement).value
       )
+    }
   );
 
 document
