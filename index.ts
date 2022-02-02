@@ -3,13 +3,9 @@ import './style.css';
 import { AnalyserMock } from './analyzer.mock';
 import { dft, fft } from './fft';
 import { Profiler } from './profiler';
-import { TextToSpeech } from './text-to-speech';
 import { Visualzer } from './visualizer';
 
 class PageView {
-  private readonly textToSpeech = new TextToSpeech(
-    'AIzaSyDfPbWqV597qWPwEbiseRLOM6RvXcaztKc'
-  );
   private readonly nativeVisualizer = new Visualzer(
     document.getElementById('native') as HTMLCanvasElement
   );
@@ -74,14 +70,13 @@ class PageView {
       );
   }
 
-  async synthesize(text: string) {
-    if (!text) {
-      return;
-    }
-
-    const speech = await this.textToSpeech.synthesize(text);
+  async synthesize() {
+    const response = await fetch(
+      'https://raw.githubusercontent.com/codeagent/sound-fft/master/speech.mp3'
+    );
+    const biffer = await response.arrayBuffer();
     const source = this.context.createBufferSource();
-    source.buffer = await this.context.decodeAudioData(speech.buffer);
+    source.buffer = await this.context.decodeAudioData(biffer);
     source.connect(this.analyzer);
     this.dftAnalyserMock.connect(source);
     this.fftAnalyserMock.connect(source);
@@ -108,17 +103,9 @@ class PageView {
 const view = new PageView();
 view.initView();
 
-document
-  .querySelector('#speech')
-  .addEventListener(
-    'click',
-    async () => {
-      console.log((document.getElementById('text') as HTMLInputElement).value)
-      await view.synthesize(
-        (document.getElementById('text') as HTMLInputElement).value
-      )
-    }
-  );
+document.querySelector('#speech').addEventListener('click', async () => {
+  await view.synthesize();
+});
 
 document
   .querySelector('#fftSize')
