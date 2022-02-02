@@ -1,3 +1,4 @@
-# sound-fft
+## Performance comparison of fft and dft in audio visualizer example demo.
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/sound-fft)
+This example demonstrates how powerful ffs (Fast Fourier Transform) is compared with simple dff
+(Discrete Fourier Transform).
